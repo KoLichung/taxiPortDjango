@@ -7,6 +7,7 @@ from rest_framework.permissions import IsAuthenticated
 from rest_framework.response import Response
 from rest_framework.authtoken.models import Token
 from datetime import datetime, timedelta
+import requests
 # Create your views here.
 
 from modelCore.models import Case
@@ -48,11 +49,23 @@ class PostNewCaseView(APIView):
             case.user_email = user.email
             case.case_state = 'wait'
 
+            path = 'https://maps.googleapis.com/maps/api/geocode/json?address='
+
             case.on_address = data['on_address']
             # need to query google api for address to lat lng
+            onUrl = path+case.on_address+"&key="+"AIzaSyCdP86OffSMXL82nbHA0l6K0W2xrdZ5xLk"
+            response = requests.get(onUrl)
+            resp_json_payload = response.json()
+            case.on_lat = resp_json_payload['results'][0]['geometry']['location']['lat']
+            case.on_lng = resp_json_payload['results'][0]['geometry']['location']['lng']
 
-            case.off_address = data['off_address']
-            # need to query google api for address to lat lng
+            if data['off_address'] != None:
+                case.off_address = data['off_address']
+                onUrl = path+case.off_address+"&key="+"AIzaSyCdP86OffSMXL82nbHA0l6K0W2xrdZ5xLk"
+                response = requests.get(onUrl)
+                resp_json_payload = response.json()
+                case.off_lat = resp_json_payload['results'][0]['geometry']['location']['lat']
+                case.off_lng = resp_json_payload['results'][0]['geometry']['location']['lng']
 
             case.create_time = datetime.now()
             case.save()
