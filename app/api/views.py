@@ -8,10 +8,12 @@ from rest_framework.response import Response
 from rest_framework.authtoken.models import Token
 from datetime import datetime, timedelta
 import requests
-# Create your views here.
+import logging
 
 from modelCore.models import Case
 from api import serializers
+
+logger = logging.getLogger(__file__)
 
 class UserCaseViewSet(viewsets.GenericViewSet,
                     mixins.ListModelMixin):
@@ -52,20 +54,27 @@ class PostNewCaseView(APIView):
             path = 'https://maps.googleapis.com/maps/api/geocode/json?address='
 
             case.on_address = data['on_address']
-            # need to query google api for address to lat lng
-            onUrl = path+case.on_address+"&key="+"AIzaSyCdP86OffSMXL82nbHA0l6K0W2xrdZ5xLk"
-            response = requests.get(onUrl)
-            resp_json_payload = response.json()
-            case.on_lat = resp_json_payload['results'][0]['geometry']['location']['lat']
-            case.on_lng = resp_json_payload['results'][0]['geometry']['location']['lng']
-
-            if data['off_address'] != None:
-                case.off_address = data['off_address']
-                onUrl = path+case.off_address+"&key="+"AIzaSyCdP86OffSMXL82nbHA0l6K0W2xrdZ5xLk"
+            try:
+                onUrl = path+case.on_address+"&key="+"AIzaSyCdP86OffSMXL82nbHA0l6K0W2xrdZ5xLk"
                 response = requests.get(onUrl)
                 resp_json_payload = response.json()
-                case.off_lat = resp_json_payload['results'][0]['geometry']['location']['lat']
-                case.off_lng = resp_json_payload['results'][0]['geometry']['location']['lng']
+                case.on_lat = resp_json_payload['results'][0]['geometry']['location']['lat']
+                case.on_lng = resp_json_payload['results'][0]['geometry']['location']['lng']
+            except Exception as e:
+                print(f'on location error {e}')
+                logger.error(f'on location error {e}')
+
+            if data['off_address'] != None and data['off_address'] != '':
+                case.off_address = data['off_address']
+                try:
+                    onUrl = path+case.off_address+"&key="+"AIzaSyCdP86OffSMXL82nbHA0l6K0W2xrdZ5xLk"
+                    response = requests.get(onUrl)
+                    resp_json_payload = response.json()
+                    case.off_lat = resp_json_payload['results'][0]['geometry']['location']['lat']
+                    case.off_lng = resp_json_payload['results'][0]['geometry']['location']['lng']
+                except Exception as e:
+                    print(f'off location error {e}')
+                    logger.error(f'off location error {e}')
 
             case.create_time = datetime.now()
             case.save()
