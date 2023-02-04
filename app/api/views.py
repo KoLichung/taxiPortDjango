@@ -63,6 +63,7 @@ class PostNewCaseView(APIView):
             except Exception as e:
                 print(f'on location error {e}')
                 logger.error(f'on location error {e}')
+                raise APIException("error")
 
             if data['off_address'] != None and data['off_address'] != '':
                 case.off_address = data['off_address']
