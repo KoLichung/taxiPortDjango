@@ -69,6 +69,10 @@ class Case(models.Model):
     off_lng = models.DecimalField(max_digits=9, decimal_places=6, blank = True, null=True)
     off_address = models.CharField(max_length=255, default='', blank = True, null=True)
     
+    driver_name = models.CharField(max_length=255, default='', blank = True, null=True)
+    car_model = models.CharField(max_length=128, default='', blank = True, null=True)
+    car_id_number = models.CharField(max_length=128, default='', blank = True, null=True)
+
     case_money = models.IntegerField(default=0, blank = True, null=True)
 
     create_time = models.DateTimeField(auto_now=False, blank = True, null=True)
