@@ -26,6 +26,7 @@ class UserCaseViewSet(viewsets.GenericViewSet,
     def get_queryset(self):
         return self.queryset.filter(user=self.request.user).order_by('-id')
 
+# not used
 class GetCurrentAddressView(APIView):
 
     def get(self, request, format=None):
@@ -35,6 +36,22 @@ class GetCurrentAddressView(APIView):
         # need to query google api for address
 
         return Response({'message': "this is test address!"})
+
+class GetCurrentCaseStateView(APIView):
+    authentication_classes = (TokenAuthentication,)
+    permission_classes = (IsAuthenticated,)
+
+    def get(self, request, format=None):
+        user = self.request.user
+        case_id = self.request.query_params.get('case_id')
+        
+        case = Case.objects.get(id=case_id)
+        if case.user == user:
+            serializer = serializers.CaseSerializer(case)
+            return Response(serializer.data)
+        else:
+            raise APIException("error")
+
 
 class PostNewCaseView(APIView):
     authentication_classes = (TokenAuthentication,)
@@ -80,6 +97,6 @@ class PostNewCaseView(APIView):
             case.create_time = datetime.now()
             case.save()
 
-            return Response({'message': "success create case!"})
+            return Response({'message': "success create case!",'case_id':case.id})
         else:
             raise APIException("error")
