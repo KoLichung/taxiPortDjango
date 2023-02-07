@@ -47,7 +47,8 @@ INSTALLED_APPS = [
     'rest_framework.authtoken',
     'modelCore',
     'user',
-    'api'
+    'api',
+    'backboard',
 ]
 
 MIDDLEWARE = [

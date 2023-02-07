@@ -1,0 +1,88 @@
+{% extends 'backboard/base.html' %} {% block content %}
+{% load static %}
+
+<!-- 內容 -->
+
+<div class="g-3 mb-3">
+  <div class="col-lg-12 ps-lg-2 mb-3">
+    
+    <!-- 訂單明細 -->
+    <div class="card h-lg-100 mb-3">
+      <div class="card-header">
+        <div class="sub-title mb-3">訂單明細</div>
+        <div id="tableExample2" data-list='{"valueNames":["name","email","age"],"page":10,"pagination":true}'>
+          <div class="table-responsive scrollbar">
+            <table class="table  fs--1 mb-0">
+              <thead class="bg-200 text-900">
+                <tr>
+                  <th>案件狀態</th>
+                  <th>日期</th>
+                  <th>英文客人/名稱</th>
+                  <th>上車位置</th>
+                  <th>下車位置</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td >
+                    <div class="case-status-on">未處理</div>
+                  </td>
+                  <td>2023/1/2</br>14:23:30</td>
+                  <td>否/大雄</td>
+                  <td>桃園區林森路1號</br>No. 1, Linsen Road, Taoyuan District</td>
+                  <td>未指名</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 指定司機 -->
+    <div class="card h-lg-100 mb-3">
+      <div class="card-header">
+        <p class="sub-title">指定司機</p>
+        <div class="table-responsive scrollbar">
+          <table class="table  fs--1 mb-0">
+            <thead class="bg-200 text-900">
+              <tr>
+                <th>司機姓名</th>
+                <th>車號</th>
+                <th>車型</th>
+                <th>預計幾分鐘到達</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>陳先生 Mr.Chen</td>
+                <td>Abc-123</td>
+                <td>Toyota Wish</td>
+                <td>7</td>
+              </tr> 
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+
+    <!-- 乘車狀態 -->
+    <div class="card h-lg-100 mb-3">
+      <div class="card-header">
+        <p class="sub-title">乘車狀態</p>
+        <p style="color: red; font-weight: bold;">＊乘車狀態按鈕一旦按下無法回復！</p>
+        <button type="button" class="change-state-button" disabled>接客中</button>
+        <button class="change-state-button">載到客人</button>
+        <button class="change-state-button">抵達目的地</button>
+        <div class="my-3 flex-input">
+          <label class="form-label pt-1" for="taxiFee" style="width: max-content;">輸入車資：</label>
+          <input class="form-control" id="taxiFee" type="text" style="width: 15%;"  />
+          &emsp;
+          <button class="btn btn-danger" onclick="location.href='{% url 'orders' %}'">送出</button>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</div>
+{% endblock %}

@@ -1,0 +1,105 @@
+{% extends 'backboard/base.html' %} {% block content %}
+{% load static %}
+
+<!-- 內容 -->
+
+<div class="g-3 mb-3">
+  <div class="col-lg-12 ps-lg-2 mb-3">
+    <!-- 消費者資訊 -->
+    <div class="card h-lg-100 mb-3">
+      <div class="card-header">
+        <p class="sub-title">消費者資訊</p>
+        <p><b>姓名：</b>張曉明<b>&emsp;Email：</b>abc@gmail.com</p>
+      </div>
+    </div>
+
+    <!-- 訂單明細 -->
+    <div class="card h-lg-100 mb-3">
+      <div class="card-header">
+        <div class="sub-title mb-3">訂單明細</div>
+        <div id="tableExample2" data-list='{"valueNames":["name","email","age"],"page":10,"pagination":true}'>
+          <div class="table-responsive scrollbar">
+            <table class="table  fs--1 mb-0">
+              <thead class="bg-200 text-900">
+                <tr>
+                  <th>案件狀態</th>
+                  <th>日期</th>
+                  <th>英文客人/名稱</th>
+                  <th>上車位置</th>
+                  <th>下車位置</th>
+                </tr>
+              </thead>
+              <tbody class="">
+                <tr>
+                  <td >
+                    <div class="case-status-on">未處理</div>
+                  </td>
+                  <td>2023/1/2</br>14:23:30</td>
+                  <td>否/大雄</td>
+                  <td>桃園區林森路1號</br>No. 1, Linsen Road, Taoyuan District</td>
+                  <td>未指名</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 指定司機 -->
+    <div class="card h-lg-100 mb-3">
+      <div class="card-header">
+        <p class="sub-title">指定司機</p>
+        <div class="table-responsive scrollbar">
+          <table class="table  fs--1 mb-0">
+            <thead class="bg-200 text-900">
+              <tr>
+                <th>司機姓名</th>
+                <th>車號</th>
+                <th>車型</th>
+                <th>預計幾分鐘到達</th>
+              </tr>
+            </thead>
+            <tbody class="">
+              <tr>
+                <td>陳先生 Mr.Chen</td>
+                <td>Abc-123</td>
+                <td>Toyota Wish</td>
+                <td>7</td>
+              </tr> 
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+
+    <!-- 乘車明細 -->
+    <div class="card h-lg-100 mb-3">
+      <div class="card-header">
+        <p class="sub-title">乘車明細</p>
+        <div class="table-responsive scrollbar">
+          <table class="table  fs--1 mb-0">
+            <thead class="bg-200 text-900">
+              <tr>
+                <th>叫車時間</th>
+                <th>客人上車</th>
+                <th>客人抵達目的地</th>
+                <th>車資</th>
+              </tr>
+            </thead>
+            <tbody class="">
+              <tr>
+                <td>13:35:56</td>
+                <td>13:45:56</td>
+                <td>13:55:56</td>
+                <td style="color: red">270</td>
+              </tr> 
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+{% endblock %}  

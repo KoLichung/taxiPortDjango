@@ -1,0 +1,119 @@
+/* -------------------------------------------------------------------------- */
+/*                                chijia Button                               */
+/* -------------------------------------------------------------------------- */
+/* prettier-ignore */
+/*# sourceMappingURL=user.css.map */
+
+.sub-title{
+  color: #336179;
+  font-weight: bold;
+  font-size: 1em;
+}
+
+.title{
+  font-weight: bold;
+  font-size: 1em;
+  color: #336179;
+}
+
+.custom-blue-button{
+  background-color: #336179;
+  color: white;
+  border:none;
+  border-radius: 4px;
+  padding:6px 4px;
+}
+
+.custom-blue-button:hover{
+  background-color: #397a9c;
+  color: white;
+  text-decoration: none;
+}
+
+.custom-blue-outlined-button{
+  color: #336179;
+  border: solid 1px #336179 ;
+}
+
+.custom-blue-outlined-button:hover{
+  text-decoration: none;
+  color: #397a9c;
+  border: solid 1px #397a9c ;
+
+}
+
+.case-status-on{
+  padding: 4px 10px;
+  border-radius: 4px;
+  width: max-content;
+  color: #3F96C4;
+  border: solid 1px #3F96C4 ;
+  font-weight: 800;
+}
+
+.case-status-off{
+  padding: 4px 10px;
+  border-radius: 4px;
+  width: max-content;
+  color: #8C8C8C;
+  border: solid 1px #8C8C8C ;
+}
+
+
+.change-state-button{
+  background-color: #3F96C4;
+  color: white;
+  border-radius: 4px;
+  width: max-content;
+  padding: 4px 10px;
+  border: none;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 16px;
+  margin: 4px 2px;
+  cursor: pointer;
+}
+
+.change-state-button:hover{
+  background-color: #336179;
+  color: white;
+  border-radius: 4px;
+  width: max-content;
+  padding: 4px 10px;
+  border: none;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 16px;
+  margin: 4px 2px;
+  cursor: pointer;
+}
+
+.change-state-button:focus{
+  background-color: white;
+  border:  1px solid #336179;
+  color: #336179;
+  border-radius: 4px;
+  width: max-content;
+  padding: 4px 10px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 16px;
+  margin: 4px 2px;
+  cursor: pointer;
+}
+
+/* .change-state-button:disabled, */
+.change-state-button[disabled]{
+  border:  1px solid #336179;
+  background-color: white;
+  color: #336179;
+  cursor: not-allowed;
+}
+
+.flex-input{
+  display: flex;
+  align-items: center;
+}

@@ -1,0 +1,48 @@
+{% extends 'backboard/base.html' %} {% block content %}
+{% load static %}
+
+<!-- 內容 -->
+
+<div class="g-3 mb-3">
+  <div class="col-lg-12 ps-lg-2 mb-3">
+
+    <!-- 消費者資訊 -->
+    <div class="card h-lg-100 mb-3">
+      <div class="card-header">
+        <p class="sub-title">消費者資訊</p>
+        <p><b>姓名：</b>張曉明<b>&emsp;Email：</b>abc@gmail.com</p>
+      </div>
+    </div>
+
+    <!-- 歷史訂單 -->
+    <div class="card h-lg-100 mb-3">
+      <div class="card-header">
+          <div class="table-responsive scrollbar">
+            <table class="table  table-striped fs--1 mb-0">
+              <p class="sub-title">歷史訂單</p>
+              <thead class="bg-200 text-900">
+                <tr>
+                  <th>訂單號碼</th>
+                  <th>訂單日期</th>
+                  <th>訂單狀態</th>
+                  <th></th>
+                </tr>
+              </thead>
+              <tbody class="list">
+                <tr>
+                  <td>20220422001</td>
+                  <td>2023/1/2 14:23</td>
+                  <td>已完成</td>
+                  <td class="text-end">
+                    <a href="{% url 'order_detail' %}" class="custom-blue-button btn-sm" role="button">查看</a>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+{% endblock %}  
