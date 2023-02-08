@@ -67,12 +67,12 @@
             <div class="card">
               <div class="card-body p-4 p-sm-5">
                 
-                <form>
+                <form action="{% url 'login' %}" method="post">{% csrf_token %}
                   <div class="mb-3">
-                    <input class="form-control" type="email" placeholder="帳號" />
+                    <input class="form-control" placeholder="帳號" name="email" id="email"/>
                   </div>
                   <div class="mb-3">
-                    <input class="form-control" type="password" placeholder="密碼" />
+                    <input class="form-control" type="password" placeholder="密碼" name="password" id="password"/>
                   </div>
                   <div class="mb-3">
                     <button class="custom-blue-button d-block w-100 mt-3" type="submit" name="submit" role="button">登入</button>
