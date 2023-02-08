@@ -25,12 +25,28 @@
               <tbody>
                 <tr>
                   <td >
-                    <div class="case-status-on">未處理</div>
+                    {% if case.case_state == 'wait' %}
+                      <div class="case-status-on">等待派車</div>
+                    {% elif case.case_state == 'way_to_catch' %} 
+                      <div class="case-status-on">接客中</div>
+                    {% elif case.case_state == 'arrived' or case.case_state == 'catched' %}
+                      <div class="case-status-on">接到客人</div>
+                    {% elif case.case_state == 'finished' %}
+                      <div class="case-status-off">已完成</div>
+                    {% elif case.case_state == 'canceled' %}
+                      <div class="case-status-off">已取消</div>
+                    {% endif %}
                   </td>
-                  <td>2023/1/2</br>14:23:30</td>
-                  <td>否/大雄</td>
-                  <td>桃園區林森路1號</br>No. 1, Linsen Road, Taoyuan District</td>
-                  <td>未指名</td>
+                  <td>{{case.create_time | date:'Y/m/d'}}</br>{{case.create_time | date:'H:i:s'}}</td>
+                  <td>
+                    {% if case.is_english == True %}
+                      <span style="color: red; font-weight: bold;">是 / {{case.user_name}}</span>
+                    {% elif case.is_english == False %}
+                      否 / {{case.user_name}}
+                    {% endif %}
+                  </td>
+                  <td>{{case.on_address}}</br>{{case.on_address_en}}</td>
+                  <td>{{case.off_address}}</br>{{case.off_address_en}}</td>
                 </tr>
               </tbody>
             </table>
@@ -55,9 +71,9 @@
             </thead>
             <tbody>
               <tr>
-                <td>陳先生 Mr.Chen</td>
-                <td>Abc-123</td>
-                <td>Toyota Wish</td>
+                <td>{{case.driver_name}}</td>
+                <td>{{case.car_id_number}}</td>
+                <td>{{case.car_model}}</td>
                 <td>7</td>
               </tr> 
             </tbody>

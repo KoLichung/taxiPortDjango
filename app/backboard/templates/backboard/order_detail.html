@@ -8,8 +8,8 @@
     <!-- 消費者資訊 -->
     <div class="card h-lg-100 mb-3">
       <div class="card-header">
-        <p class="sub-title">消費者資訊</p>
-        <p><b>姓名：</b>{{case.user_name}}<b>&emsp;Email：</b>{{case.user_email}} {{case.user.name}}</p>
+        <p class="sub-title">乘客資訊</p>
+        <p><b>姓名：</b>{{case.user_name}}<b>&emsp;Email：</b>{{case.user_email}}</p>
       </div>
     </div>
 
@@ -29,15 +29,31 @@
                   <th>下車位置</th>
                 </tr>
               </thead>
-              <tbody class="">
+              <tbody>
                 <tr>
                   <td >
-                    <div class="case-status-on">未處理</div>
+                    {% if case.case_state == 'wait' %}
+                      <div class="case-status-on">等待派車</div>
+                    {% elif case.case_state == 'way_to_catch' %} 
+                      <div class="case-status-on">接客中</div>
+                    {% elif case.case_state == 'arrived' or case.case_state == 'catched' %}
+                      <div class="case-status-on">接到客人</div>
+                    {% elif case.case_state == 'finished' %}
+                      <div class="case-status-off">已完成</div>
+                    {% elif case.case_state == 'canceled' %}
+                      <div class="case-status-off">已取消</div>
+                    {% endif %}
                   </td>
-                  <td>2023/1/2</br>14:23:30</td>
-                  <td>否/大雄</td>
-                  <td>桃園區林森路1號</br>No. 1, Linsen Road, Taoyuan District</td>
-                  <td>未指名</td>
+                  <td>{{case.create_time | date:'Y/m/d'}}</br>{{case.create_time | date:'H:i:s'}}</td>
+                  <td>
+                    {% if case.is_english == True %}
+                      <span style="color: red; font-weight: bold;">是 / {{case.user_name}}</span>
+                    {% elif case.is_english == False %}
+                      否 / {{case.user_name}}
+                    {% endif %}
+                  </td>
+                  <td>{{case.on_address}}</br>{{case.on_address_en}}</td>
+                  <td>{{case.off_address}}</br>{{case.off_address_en}}</td>
                 </tr>
               </tbody>
             </table>
@@ -62,9 +78,9 @@
             </thead>
             <tbody class="">
               <tr>
-                <td>陳先生 Mr.Chen</td>
-                <td>Abc-123</td>
-                <td>Toyota Wish</td>
+                <td>{{case.driver_name}}</td>
+                <td>{{case.car_id_number}}</td>
+                <td>{{case.car_model}}</td>
                 <td>7</td>
               </tr> 
             </tbody>
@@ -82,17 +98,19 @@
             <thead class="bg-200 text-900">
               <tr>
                 <th>叫車時間</th>
+                <th>派車時間</th>
                 <th>客人上車</th>
                 <th>客人抵達目的地</th>
-                <th>車資</th>
+                <th class="text-end">車資</th>
               </tr>
             </thead>
             <tbody class="">
               <tr>
-                <td>13:35:56</td>
-                <td>13:45:56</td>
-                <td>13:55:56</td>
-                <td style="color: red">270</td>
+                <td>{{case.create_time | date:'H:i:s'}}</td>
+                <td>{{case.confirm_time | date:'H:i:s'}}</td>
+                <td>{{case.catched_time | date:'H:i:s'}}</td>
+                <td>{{case.off_time | date:'H:i:s'}}</td>
+                <td class="text-end" style="color: red ">{{case.case_money}}</td>
               </tr> 
             </tbody>
           </table>

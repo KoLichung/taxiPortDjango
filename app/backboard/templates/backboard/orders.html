@@ -34,26 +34,40 @@
                 {% for case in cases %}
                   <tr>
                     <td>
-                      <div class="case-status-on">
-                        {% if case.case_state == 'wait' %}
-                          等待派車
-                        {% elif case.case_state == 'way_to_catch' %}
-                          接客中
-                        {% elif case.case_state == 'arrived' or case.case_state == 'catched' %}
-                          接到客人
-                        {% elif case.case_state == 'finished' %}
-                          已完成
-                        {% elif case.case_state == 'canceled' %}
-                          已取消
-                        {% endif %}
-                      </div>
+                      {% if case.case_state == 'wait' %}
+                        <div class="case-status-on">等待派車</div>
+                      {% elif case.case_state == 'way_to_catch' %} 
+                        <div class="case-status-on">接客中</div>
+                      {% elif case.case_state == 'arrived' or case.case_state == 'catched' %}
+                        <div class="case-status-on">接到客人</div>
+                      {% elif case.case_state == 'finished' %}
+                        <div class="case-status-off">已完成</div>
+                      {% elif case.case_state == 'canceled' %}
+                        <div class="case-status-off">已取消</div>
+                      {% endif %}
                     </td>
-                    <td>2023/1/2</br>14:23:30</td>
-                    <td><span style="color: red; font-weight: bold;">是 / Mike</span></td>
-                    <td>桃園區林森路1號</br>No. 1, Linsen Road, Taoyuan District</td>
-                    <td>未指名</td>
-                    <td>                    
-                      <a href="{% url 'order_assign_driver' %}" class="custom-blue-button btn-sm" role="button">查看</a>
+                    <td>{{case.create_time | date:'Y/m/d'}}</br>{{case.create_time | date:'H:i:s'}}</td>
+                    <td>
+                      {% if case.is_english == False %}
+                        <span>否 /{{case.user_name}}</span>
+                      {% elif case.is_english == True %}
+                        <span style="color: red; font-weight: bold;">是 /{{case.user_name}}</span>
+                      {% endif %}
+                    </td>
+                    <td>{{case.on_address}}</br>{{case.on_address_en}}</td>
+                    <td>{{case.off_address}}</br>{{case.off_address_en}}</td>
+                    <td>
+                      {% if case.case_state == 'wait' %}
+                        <a href="{% url 'order_assign_driver' %}?case_id={{case.id}}" class="custom-blue-button" role="button">查看</a>
+                      {% elif case.case_state == 'way_to_catch' %} 
+                        <a href="{% url 'order_driver_status' %}?case_id={{case.id}}" class="custom-blue-button" role="button">查看</a>
+                      {% elif case.case_state == 'arrived' or case.case_state == 'catched' %}
+                        <a href="{% url 'order_driver_status' %}?case_id={{case.id}}" class="custom-blue-button" role="button">查看</a>
+                      {% elif case.case_state == 'finished' %}
+                        <a href="{% url 'order_detail' %}?case_id={{case.id}}" class="custom-blue-button" role="button">查看</a>
+                      {% elif case.case_state == 'canceled' %}
+                        <a href="{% url 'order_detail' %}?case_id={{case.id}}" class="custom-blue-button" role="button">查看</a>
+                      {% endif %}                    
                     </td>
                   </tr>
                 {% endfor %}

@@ -8,7 +8,8 @@
     <div class="card h-lg-100">
       <div class="card-header">
         <div class="sub-title mb-3">會員列表</div>
-        <div id="tableExample2" data-list='{"valueNames":["name","email","age"],"page":10,"pagination":true}'>
+
+        <div id="tableExample2" data-list='{"valueNames":["name","email"],"page":10,"pagination":true}'>
           <div class="table-responsive scrollbar">
             <table class="table  table-striped fs--1 mb-0">
               <thead class="bg-200 text-900">
@@ -18,15 +19,19 @@
                   <th></th>
                 </tr>
               </thead>
+
               <tbody class="list">
+                {% for user in users %}
                 <tr>
-                  <td>張曉明</td>
-                  <td>abc@email.com</td>
+                  <td>{{user.name}}</td>
+                  <td>{{user.email}}</td>
                   <td class="text-end">                    
-                    <a href="{% url 'member_detail' %}" class="custom-blue-button btn-sm" role="button">查看</a>
+                    <a href="{% url 'member_detail' %}?user_id={{user.id}}" class="custom-blue-button btn-sm" role="button">查看</a>
                   </td>
                 </tr>
+                {% endfor%}
               </tbody>
+              
             </table>
           </div>
           <div class="d-flex justify-content-center mt-3">

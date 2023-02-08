@@ -4,7 +4,7 @@ from django.http import HttpResponse
 from django.contrib import auth
 from django.contrib.auth import authenticate
 
-from modelCore.models import Case
+from modelCore.models import Case, User
 
 def login(request):
     if request.method == 'POST':
@@ -47,23 +47,37 @@ def order_detail(request):
 def members(request):
     if not request.user.is_authenticated or not request.user.is_staff:
         return redirect('/backboard/')
+    
+    users = User.objects.all().order_by('-id')
 
-    return render(request,'backboard/members.html')
+    return render(request,'backboard/members.html',{'users':users})
 
 def member_detail(request):
     if not request.user.is_authenticated or not request.user.is_staff:
         return redirect('/backboard/')
 
-    return render(request,'backboard/member_detail.html')
+    user_id = request.GET.get('user_id')
+    user = User.objects.get(id=user_id)
+
+    cases = Case.objects.filter(user=user)
+
+
+    return render(request,'backboard/member_detail.html',{'user':user, 'cases':cases})
 
 def order_assign_driver(request):
     if not request.user.is_authenticated or not request.user.is_staff:
         return redirect('/backboard/')
 
-    return render(request,'backboard/order_assign_driver.html')
+    case_id = request.GET.get('case_id')
+    case = Case.objects.get(id=case_id)
+
+    return render(request,'backboard/order_assign_driver.html',{'case':case})
 
 def order_driver_status(request):
     if not request.user.is_authenticated or not request.user.is_staff:
         return redirect('/backboard/')
 
-    return render(request,'backboard/order_driver_status.html')
+    case_id = request.GET.get('case_id')
+    case = Case.objects.get(id=case_id)
+
+    return render(request,'backboard/order_driver_status.html',{'case':case})

@@ -10,7 +10,7 @@
     <div class="card h-lg-100 mb-3">
       <div class="card-header">
         <p class="sub-title">消費者資訊</p>
-        <p><b>姓名：</b>張曉明<b>&emsp;Email：</b>abc@gmail.com</p>
+        <p><b>姓名：</b>{{user.name}}<b>&emsp;Email：</b>{{user.email}}</p>
       </div>
     </div>
 
@@ -22,21 +22,36 @@
               <p class="sub-title">歷史訂單</p>
               <thead class="bg-200 text-900">
                 <tr>
-                  <th>訂單號碼</th>
                   <th>訂單日期</th>
                   <th>訂單狀態</th>
                   <th></th>
                 </tr>
               </thead>
               <tbody class="list">
-                <tr>
-                  <td>20220422001</td>
-                  <td>2023/1/2 14:23</td>
-                  <td>已完成</td>
-                  <td class="text-end">
-                    <a href="{% url 'order_detail' %}" class="custom-blue-button btn-sm" role="button">查看</a>
-                  </td>
-                </tr>
+                
+                {% for case in cases %}
+                  <tr>
+                    <td>{{case.create_time | date:'Y/m/d'}} {{case.create_time | date:'H:i:s'}}</td>
+                    <td>
+                      {% if case.case_state == 'wait' %}
+                        <div class="case-status-on">等待派車</div>
+                      {% elif case.case_state == 'way_to_catch' %} 
+                        <div class="case-status-on">接客中</div>
+                      {% elif case.case_state == 'arrived' or case.case_state == 'catched' %}
+                        <div class="case-status-on">接到客人</div>
+                      {% elif case.case_state == 'finished' %}
+                        <div class="case-status-off">已完成</div>
+                      {% elif case.case_state == 'canceled' %}
+                        <div class="case-status-off">已取消</div>
+                      {% endif %}
+                    </td>
+                    <td class="text-end">
+                      <a href="{% url 'order_detail' %}?case_id={{case.id}}" class="custom-blue-button btn-sm" role="button">查看</a>
+                    </td>
+                  </tr>
+                {% endfor %}
+                  
+                
               </tbody>
             </table>
           </div>

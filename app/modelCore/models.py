@@ -61,14 +61,18 @@ class Case(models.Model):
     ]
     case_state = models.CharField(max_length=20, choices=CASE_STATE_CHOICES, default='') 
 
+    is_english = models.BooleanField(default=False)
+
     on_lat = models.DecimalField(max_digits=9, decimal_places=6, blank = True, null=True)
     on_lng = models.DecimalField(max_digits=9, decimal_places=6, blank = True, null=True)
     on_address = models.CharField(max_length=255, default='', blank = True, null=True)
-    
+    on_address_en = models.CharField(max_length=255, default='', blank = True, null=True)
+
     off_lat = models.DecimalField(max_digits=9, decimal_places=6, blank = True, null=True)
     off_lng = models.DecimalField(max_digits=9, decimal_places=6, blank = True, null=True)
     off_address = models.CharField(max_length=255, default='', blank = True, null=True)
-    
+    off_address_en = models.CharField(max_length=255, default='', blank = True, null=True)
+
     driver_name = models.CharField(max_length=255, default='', blank = True, null=True)
     car_model = models.CharField(max_length=128, default='', blank = True, null=True)
     car_id_number = models.CharField(max_length=128, default='', blank = True, null=True)

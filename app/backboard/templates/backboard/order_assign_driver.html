@@ -24,13 +24,19 @@
               </thead>
               <tbody>
                 <tr>
-                  <td >
-                    <div class="case-status-on">未處理</div>
+                  <td > 
+                    <div class="case-status-on">等待派車</div>
                   </td>
-                  <td>2023/1/2</br>14:23:30</td>
-                  <td>否/大雄</td>
-                  <td>桃園區林森路1號</br>No. 1, Linsen Road, Taoyuan District</td>
-                  <td>未指名</td>
+                  <td>{{case.create_time | date:'Y/m/d'}}</br>{{case.create_time | date:'H:i:s'}}</td>
+                  <td>
+                    {% if case.is_english == True %}
+                      <span style="color: red; font-weight: bold;">是 / {{case.user_name}}</span>
+                    {% elif case.is_english == False %}
+                      否 / {{case.user_name}}
+                    {% endif %}
+                    </td>
+                  <td>{{case.on_address}}</br>{{case.on_address_en}}</td>
+                  <td>{{case.off_address}}</br>{{case.off_address_en}}</td>
                 </tr>
               </tbody>
             </table>
@@ -63,7 +69,7 @@
           </div>
           
           <div class="text-end">
-            <button class="btn btn-danger" onclick="location.href='{% url 'order_driver_status' %}'" type="button">送出</button>
+            <button class="btn btn-danger" onclick="location.href='{% url 'order_driver_status' %}?case_id={{case.id}}'" type="button">送出</button>
           </div>
 
         </form>
