@@ -74,7 +74,7 @@
                 <td>{{case.driver_name}}</td>
                 <td>{{case.car_id_number}}</td>
                 <td>{{case.car_model}}</td>
-                <td>7</td>
+                <td>{{case.expect_minutes}}</td>
               </tr> 
             </tbody>
           </table>
@@ -87,15 +87,29 @@
       <div class="card-header">
         <p class="sub-title">乘車狀態</p>
         <p style="color: red; font-weight: bold;">＊乘車狀態按鈕一旦按下無法回復！</p>
-        <button type="button" class="change-state-button" disabled>接客中</button>
-        <button class="change-state-button">載到客人</button>
-        <button class="change-state-button">抵達目的地</button>
-        <div class="my-3 flex-input">
-          <label class="form-label pt-1" for="taxiFee" style="width: max-content;">輸入車資：</label>
-          <input class="form-control" id="taxiFee" type="text" style="width: 15%;"  />
-          &emsp;
-          <button class="btn btn-danger" onclick="location.href='{% url 'orders' %}'">送出</button>
-        </div>
+        
+        <form action="{% url 'order_driver_status' %}" method="post"> {% csrf_token %}
+          <button class="change-state-button" disabled>接客中</button>
+          <button class="change-state-button" type='submit' name='button_submit' value='catched'>載到客人</button>
+          
+          <button class="change-state-button" type='submit' name='button_submit' value='finished'>抵達目的地</button>
+
+          {% if case.case_state == 'finished' %}
+            {% if case.case_money == None or case.case_money == 0 %}
+              <div class="my-3 flex-input">
+                <label class="form-label pt-1" for="taxiFee" style="width: max-content;">輸入車資：</label>
+                <input class="form-control" id="taxiFee" type="text" style="width: 15%;"  />
+                &emsp;
+                <button class="btn btn-danger" onclick="location.href='{% url 'orders' %}'">送出</button>
+              </div>
+            {% else %}
+              <div class="my-3 flex-input">
+                <label class="form-label pt-1" for="taxiFee" style="width: max-content;">車資：{{case.case_money}}</label>
+              </div>
+            {% endif %}
+          {% endif %}
+        </form>
+
       </div>
     </div>
 

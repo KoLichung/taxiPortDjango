@@ -76,6 +76,7 @@ class Case(models.Model):
     driver_name = models.CharField(max_length=255, default='', blank = True, null=True)
     car_model = models.CharField(max_length=128, default='', blank = True, null=True)
     car_id_number = models.CharField(max_length=128, default='', blank = True, null=True)
+    expect_minutes = models.IntegerField(default=0, blank = True, null=True)
 
     case_money = models.IntegerField(default=0, blank = True, null=True)
 

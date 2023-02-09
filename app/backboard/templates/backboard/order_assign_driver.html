@@ -50,28 +50,28 @@
       <div class="card-header">
         <p class="sub-title">指定司機</p>
 
-        <form action="">
+        <form action="{% url 'order_assign_driver' %}" method="post"> {% csrf_token %}
           <div class="mb-3" style="width: 50%;">
             <label class="form-label" for="driverName">司機姓名：</label>
-            <input class="form-control" id="driverName" type="text"  />
+            <input class="form-control" id="driverName" name="driverName" type="text"  />
           </div>
           <div class="mb-3" style="width: 50%;">
               <label class="form-label" for="carNumber">車號：</label>
-              <input class="form-control" id="carNumber" type="text"  />
+              <input class="form-control" id="carNumber" name="carNumber" type="text"  />
           </div>
           <div class="mb-3" style="width: 50%;">
               <label class="form-label" for="carModel">車型：</label>
-              <input class="form-control" id="carModel" type="text"  />
+              <input class="form-control" id="carModel" name="carModel" type="text"  />
           </div>
           <div class="mb-3" style="width: 50%;">
               <label class="form-label" for="minutesToArrive">預計幾分鐘到達：</label>
-              <input class="form-control" id="minutesToArrive" type="text"  />
+              <input class="form-control" id="minutesToArrive" name="minutesToArrive" type="text"  />
           </div>
-          
-          <div class="text-end">
-            <button class="btn btn-danger" onclick="location.href='{% url 'order_driver_status' %}?case_id={{case.id}}'" type="button">送出</button>
-          </div>
+          <input type="hidden" id="case_id" name="case_id" value={{case.id}}>
 
+          <div class="text-end">
+            <button class="btn btn-danger" type="submit" name="submit">送出</button>
+          </div>
         </form>
         
       </div>
