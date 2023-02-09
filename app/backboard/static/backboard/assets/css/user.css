@@ -26,19 +26,20 @@
 }
 
 .custom-blue-button:hover{
-  background-color: #397a9c;
-  color: white;
   text-decoration: none;
+  color: white
 }
 
 .custom-blue-outlined-button{
   color: #336179;
+  background-color: white;
   border: solid 1px #336179 ;
 }
 
-.custom-blue-outlined-button:hover{
+.custom-blue-outlined-button:visited{
   text-decoration: none;
-  color: #397a9c;
+  color: red;
+  background-color: white;
   border: solid 1px #397a9c ;
 
 }
@@ -67,8 +68,8 @@
   border-radius: 4px;
   width: max-content;
   padding: 4px 10px;
-  border: none;
   text-align: center;
+  border: none;
   text-decoration: none;
   display: inline-block;
   font-size: 16px;

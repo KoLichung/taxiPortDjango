@@ -89,25 +89,38 @@
         <p style="color: red; font-weight: bold;">＊乘車狀態按鈕一旦按下無法回復！</p>
         
         <form action="{% url 'order_driver_status' %}" method="post"> {% csrf_token %}
-          <button class="change-state-button" disabled>接客中</button>
-          <button class="change-state-button" type='submit' name='button_submit' value='catched'>載到客人</button>
-          
-          <button class="change-state-button" type='submit' name='button_submit' value='finished'>抵達目的地</button>
+          <input type="hidden" id="case_id" name="case_id" value={{case.id}}>
 
-          {% if case.case_state == 'finished' %}
+          {% if case.case_state == 'way_to_catch' %}
+            <button class="change-state-button" disabled>接客中</button>
+            <button class="change-state-button" type='submit' name='button_submit' value='catched'>載到客人</button>
+            <button class="change-state-button" type='submit' name='button_submit' value='finished'>抵達目的地</button>
+          {% elif case.case_state == 'catched' %}
+            <button class="change-state-button" disabled>接客中</button>
+            <button class="change-state-button" type='submit' name='button_submit' value='catched' disabled>載到客人</button>
+            <button class="change-state-button" type='submit' name='button_submit' value='finished'>抵達目的地</button>
+          {% elif  case.case_state == 'finished'%}
+            <button class="change-state-button" disabled>接客中</button>
+            <button class="change-state-button" type='submit' name='button_submit' value='catched' disabled>載到客人</button>
+            <button class="change-state-button" type='submit' name='button_submit' value='finished' disabled>抵達目的地</button>
             {% if case.case_money == None or case.case_money == 0 %}
               <div class="my-3 flex-input">
                 <label class="form-label pt-1" for="taxiFee" style="width: max-content;">輸入車資：</label>
-                <input class="form-control" id="taxiFee" type="text" style="width: 15%;"  />
+                <input class="form-control" id="taxiFee" name='taxiFee' style="width: 15%;"  />
                 &emsp;
-                <button class="btn btn-danger" onclick="location.href='{% url 'orders' %}'">送出</button>
+                {% comment %} <button class="btn btn-danger" type='submit' name='submit_taxiFee' onclick="location.href='{% url 'orders' %}'">送出</button> {% endcomment %}
+                <button class="btn btn-danger" type='submit' name='submit_taxiFee'>送出</button>
+
               </div>
             {% else %}
               <div class="my-3 flex-input">
                 <label class="form-label pt-1" for="taxiFee" style="width: max-content;">車資：{{case.case_money}}</label>
               </div>
             {% endif %}
+          
           {% endif %}
+        
+
         </form>
 
       </div>

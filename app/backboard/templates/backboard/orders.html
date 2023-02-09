@@ -9,13 +9,21 @@
       <div class="card-header">
 
         <div class="mb-3">
-          <a href="{% url 'orders' %}" class="custom-blue-button btn-sm" role="button">所有訂單</a>
-          <a href="{% url 'order_detail' %}" class="custom-blue-outlined-button btn-sm" role="button">等待派車</a>
-          <a href="{% url 'order_detail' %}" class="custom-blue-outlined-button btn-sm" role="button">接客中</a>
-          <a href="{% url 'order_detail' %}" class="custom-blue-outlined-button btn-sm" role="button">接到客人</a>
-          <a href="{% url 'order_detail' %}" class="custom-blue-outlined-button btn-sm" role="button">已完成</a>
-          <a href="{% url 'order_detail' %}" class="custom-blue-outlined-button btn-sm" role="button">已取消</a>
+          <form action="{% url 'orders' %}" method="post"> {% csrf_token %}
+            <button class="custom-blue-button btn-sm" type='submit' name='button_submit' value='all' onclick="changeButtonStyle()" id="all">所有訂單</button>
+            <button class="custom-blue-outlined-button btn-sm" type='submit' name='button_submit' value='wait' onclick="changeButtonStyle()" id="wait">等待派車</button>
+            <button class="custom-blue-outlined-button btn-sm" type='submit' name='button_submit' value='way_to_catch'>接客中</button>
+            <button class="custom-blue-outlined-button btn-sm" type='submit' name='button_submit' value='catched'>接到客人</button>
+            <button class="custom-blue-outlined-button btn-sm" type='submit' name='button_submit' value='finished'>已完成</button>
+            <button class="custom-blue-outlined-button btn-sm" type='submit' name='button_submit' value='canceled'>已取消</button>
+          </form>  
         </div>
+
+        <script>
+          {% comment %} function changeButtonStyle(){
+            document.getElementById("wait").style.backgroundColor="#911";
+          } {% endcomment %}
+        </script>
         
         <div id="tableExample2" data-list='{"valueNames":["name","email","age"],"page":10,"pagination":true}'>
           <div class="table-responsive scrollbar">
@@ -64,7 +72,8 @@
                       {% elif case.case_state == 'arrived' or case.case_state == 'catched' %}
                         <a href="{% url 'order_driver_status' %}?case_id={{case.id}}" class="custom-blue-button" role="button">查看</a>
                       {% elif case.case_state == 'finished' %}
-                        <a href="{% url 'order_detail' %}?case_id={{case.id}}" class="custom-blue-button" role="button">查看</a>
+                        <a href="{% url 'order_driver_status' %}?case_id={{case.id}}" class="custom-blue-button" role="button">查看</a>
+
                       {% elif case.case_state == 'canceled' %}
                         <a href="{% url 'order_detail' %}?case_id={{case.id}}" class="custom-blue-button" role="button">查看</a>
                       {% endif %}                    
