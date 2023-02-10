@@ -94,7 +94,7 @@ class PostNewCaseView(APIView):
                     print(f'off location error {e}')
                     logger.error(f'off location error {e}')
 
-            case.create_time = datetime.now()
+            case.create_time = datetime.now() + timedelta(hours=8)
             case.save()
 
             return Response({'message': "success create case!",'case_id':case.id})

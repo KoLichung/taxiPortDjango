@@ -97,7 +97,7 @@ def order_assign_driver(request):
         case.car_model = carModel
         case.car_id_number = case_carNumberid
         case.expect_minutes = minutesToArrive
-        case.confirm_time = datetime.datetime.now()
+        case.confirm_time = datetime.datetime.now() + datetime.timedelta(hours=8)
 
         case.case_state = 'way_to_catch'
         case.save()
@@ -124,10 +124,10 @@ def order_driver_status(request):
         # 用了 way_to_catch, catched, finished
         if case.case_state == 'way_to_catch' and case_status == 'catched':
             case.case_state = 'catched'
-            case.catched_time = datetime.datetime.now()  
+            case.catched_time = datetime.datetime.now() + datetime.timedelta(hours=8)
         elif case.case_state == 'catched' and case_status == 'finished':
             case.case_state = 'finished'
-            case.off_time = datetime.datetime.now()
+            case.off_time = datetime.datetime.now() + datetime.timedelta(hours=8)
 
         case.save()
         if case.case_money != None:
