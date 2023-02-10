@@ -10,20 +10,14 @@
 
         <div class="mb-3">
           <form action="{% url 'orders' %}" method="post"> {% csrf_token %}
-            <button class="custom-blue-button btn-sm" type='submit' name='button_submit' value='all' onclick="changeButtonStyle()" id="all">所有訂單</button>
-            <button class="custom-blue-outlined-button btn-sm" type='submit' name='button_submit' value='wait' onclick="changeButtonStyle()" id="wait">等待派車</button>
+            <button class="custom-blue-button btn-sm" type='submit' name='button_submit' value='all' id="all">所有訂單</button>
+            <button class="custom-blue-outlined-button btn-sm" type='submit' name='button_submit' value='wait' id="wait">等待派車</button>
             <button class="custom-blue-outlined-button btn-sm" type='submit' name='button_submit' value='way_to_catch'>接客中</button>
             <button class="custom-blue-outlined-button btn-sm" type='submit' name='button_submit' value='catched'>接到客人</button>
             <button class="custom-blue-outlined-button btn-sm" type='submit' name='button_submit' value='finished'>已完成</button>
             <button class="custom-blue-outlined-button btn-sm" type='submit' name='button_submit' value='canceled'>已取消</button>
           </form>  
         </div>
-
-        <script>
-          {% comment %} function changeButtonStyle(){
-            document.getElementById("wait").style.backgroundColor="#911";
-          } {% endcomment %}
-        </script>
         
         <div id="tableExample2" data-list='{"valueNames":["name","email","age"],"page":10,"pagination":true}'>
           <div class="table-responsive scrollbar">
