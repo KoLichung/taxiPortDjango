@@ -68,6 +68,10 @@ class PostNewCaseView(APIView):
             case.user_email = user.email
             case.case_state = 'wait'
 
+            case.is_english = data['is_english']
+            case.on_address_en = data['on_address_en']
+            case.off_address_en = data['off_address_en']
+
             path = 'https://maps.googleapis.com/maps/api/geocode/json?address='
 
             case.on_address = data['on_address']
