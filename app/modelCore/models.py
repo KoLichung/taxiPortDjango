@@ -49,6 +49,12 @@ class Case(models.Model):
     user_name = models.CharField(max_length=128, default='', blank = True, null=True)
     user_email = models.CharField(max_length=20, default='', blank = True, null=True)
 
+    CASE_TYPE_CHOICES = [
+        ('direct','direct'),
+        ('reserve','reserve'),
+    ]
+    case_type = models.CharField(max_length=20, choices=CASE_TYPE_CHOICES, default='direct') 
+
      #(wait, way_to_catch, arrived, catched, on_road, finished, canceled)
     CASE_STATE_CHOICES = [
         ('wait', 'wait'),
@@ -86,3 +92,4 @@ class Case(models.Model):
     catched_time = models.DateTimeField(auto_now=False, blank = True, null=True)
     off_time = models.DateTimeField(auto_now=False, blank = True, null=True)
 
+    reserve_date_time = models.DateTimeField(auto_now=False, blank = True, null=True)

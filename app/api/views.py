@@ -100,6 +100,13 @@ class PostNewCaseView(APIView):
                     print(f'off location error {e}')
                     logger.error(f'off location error {e}')
 
+            if data['case_type'] != None:
+                case.case_type = data['case_type']
+            if data['reserve_date_time'] != None:
+                #2023-02-24 15:00
+                theDateTime = datetime.strptime(data['reserve_date_time'], '%Y-%m-%d %H:%M')
+                case.reserve_date_time = theDateTime
+
             case.create_time = datetime.now() + timedelta(hours=8)
             case.save()
 
