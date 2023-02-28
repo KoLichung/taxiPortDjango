@@ -28,10 +28,7 @@ def orders(request):
     if not request.user.is_authenticated or not request.user.is_staff:
         return redirect('/backboard/')
 
-    # 1.取得所需資料(並整理)
-    # 2.把所需資料傳到 template 裡面
-
-    cases = Case.objects.all().order_by('-id')
+    cases = Case.objects.filter(case_type='direct').order_by('-id')
     case_status = request.POST.get('button_submit')
 
     if case_status == 'all':
@@ -49,7 +46,28 @@ def orders(request):
 
     return render(request,'backboard/orders.html',{'cases':cases})
 
-  
+def reserve_orders(request):
+    if not request.user.is_authenticated or not request.user.is_staff:
+        return redirect('/backboard/')
+
+    cases = Case.objects.filter(case_type='reserve').order_by('-id')
+    case_status = request.POST.get('button_submit')
+
+    if case_status == 'all':
+        cases = Case.objects.all().order_by('-id')
+    elif case_status == 'wait':
+        cases = Case.objects.all().filter(case_state = 'wait').order_by('-id')
+    elif case_status == 'way_to_catch':
+        cases = Case.objects.all().filter(case_state = 'way_to_catch').order_by('-id')
+    if case_status == 'catched':
+        cases = Case.objects.all().filter(case_state = 'catched').order_by('-id').order_by('-id')
+    elif case_status == 'finished':
+        cases = Case.objects.all().filter(case_state = 'finished').order_by('-id')
+    elif case_status == 'canceled':
+        cases = Case.objects.all().filter(case_state = 'canceled').order_by('-id')
+
+    return render(request,'backboard/reserve_orders.html',{'cases':cases})
+
 
 def order_detail(request):
     if not request.user.is_authenticated or not request.user.is_staff:
