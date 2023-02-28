@@ -54,17 +54,17 @@ def reserve_orders(request):
     case_status = request.POST.get('button_submit')
 
     if case_status == 'all':
-        cases = Case.objects.all().order_by('-id')
+        cases = Case.objects.filter(case_type='reserve').order_by('-id')
     elif case_status == 'wait':
-        cases = Case.objects.all().filter(case_state = 'wait').order_by('-id')
+        cases = Case.objects.filter(case_type='reserve').filter(case_state = 'wait').order_by('-id')
     elif case_status == 'way_to_catch':
-        cases = Case.objects.all().filter(case_state = 'way_to_catch').order_by('-id')
+        cases = Case.objects.filter(case_type='reserve').filter(case_state = 'way_to_catch').order_by('-id')
     if case_status == 'catched':
-        cases = Case.objects.all().filter(case_state = 'catched').order_by('-id').order_by('-id')
+        cases = Case.objects.filter(case_type='reserve').filter(case_state = 'catched').order_by('-id').order_by('-id')
     elif case_status == 'finished':
-        cases = Case.objects.all().filter(case_state = 'finished').order_by('-id')
+        cases = Case.objects.filter(case_type='reserve').filter(case_state = 'finished').order_by('-id')
     elif case_status == 'canceled':
-        cases = Case.objects.all().filter(case_state = 'canceled').order_by('-id')
+        cases = Case.objects.filter(case_type='reserve').filter(case_state = 'canceled').order_by('-id')
 
     return render(request,'backboard/reserve_orders.html',{'cases':cases})
 
