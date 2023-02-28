@@ -102,6 +102,9 @@ class PostNewCaseView(APIView):
 
             if data['case_type'] != None:
                 case.case_type = data['case_type']
+            else:
+                case.case_type = 'direct'
+
             if data['reserve_date_time'] != None:
                 #2023-02-24 15:00
                 theDateTime = datetime.strptime(data['reserve_date_time'], '%Y-%m-%d %H:%M')

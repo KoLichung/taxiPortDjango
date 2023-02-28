@@ -9,7 +9,7 @@
       <div class="card-header">
 
         <div class="mb-3">
-          <form action="{% url 'orders' %}" method="post"> {% csrf_token %}
+          <form action="{% url 'reserve_orders' %}" method="post"> {% csrf_token %}
             <button class="custom-blue-button btn-sm" type='submit' name='button_submit' value='all' id="all">所有訂單</button>
             <button class="custom-blue-outlined-button btn-sm" type='submit' name='button_submit' value='wait' id="wait">等待派車</button>
             <button class="custom-blue-outlined-button btn-sm" type='submit' name='button_submit' value='way_to_catch'>接客中</button>
@@ -25,7 +25,8 @@
               <thead class="bg-200 text-900">
                 <tr>
                   <th>訂單狀態</th>
-                  <th>日期</th>
+                  <th>下單時間</th>
+                  <th>預約時間</th>
                   <th>英文客人/名稱</th>
                   <th>上車位置</th>
                   <th>下車位置</th>
@@ -49,6 +50,7 @@
                       {% endif %}
                     </td>
                     <td>{{case.create_time | date:'Y/m/d'}}</br>{{case.create_time | date:'H:i:s'}}</td>
+                    <td>{{case.reserve_date_time | date:'Y/m/d'}}</br>{{case.reserve_date_time | date:'H:i:s'}}</td>
                     <td>
                       {% if case.is_english == False %}
                         <span>否 /{{case.user_name}}</span>
