@@ -79,7 +79,7 @@ class PostNewCaseView(APIView):
                 onUrl = path+case.on_address+"&key="+"AIzaSyCdP86OffSMXL82nbHA0l6K0W2xrdZ5xLk"
                 logger.info(onUrl)
                 response = requests.get(onUrl)
-                logger.info(response.body)
+                # logger.info(response.text)
                 resp_json_payload = response.json()
                 case.on_lat = resp_json_payload['results'][0]['geometry']['location']['lat']
                 case.on_lng = resp_json_payload['results'][0]['geometry']['location']['lng']
