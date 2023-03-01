@@ -17,6 +17,9 @@
                 <tr>
                   <th>案件狀態</th>
                   <th>日期</th>
+                  {% if case.reserve_date_time %}
+                    <th>預約時間</th>
+                  {% endif %}
                   <th>英文客人/名稱</th>
                   <th>上車位置</th>
                   <th>下車位置</th>
@@ -38,6 +41,9 @@
                     {% endif %}
                   </td>
                   <td>{{case.create_time | date:'Y/m/d'}}</br>{{case.create_time | date:'H:i:s'}}</td>
+                  {% if case.reserve_date_time %}
+                    <td>{{case.reserve_date_time | date:'Y/m/d'}}</br>{{case.reserve_date_time | date:'H:i:s'}}</td>
+                  {% endif %}
                   <td>
                     {% if case.is_english == True %}
                       <span style="color: red; font-weight: bold;">是 / {{case.user_name}}</span>
