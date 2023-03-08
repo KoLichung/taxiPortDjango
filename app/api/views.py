@@ -119,3 +119,26 @@ class PostNewCaseView(APIView):
             return Response({'message': "success create case!",'case_id':case.id})
         else:
             raise APIException("error")
+        
+class PutCaseFeedbackView(APIView):
+    authentication_classes = (TokenAuthentication,)
+    permission_classes = (IsAuthenticated,)
+
+    def put(self, request, format=None):
+        user = self.request.user
+        data = self.request.data
+
+        try: 
+            case_id = self.request.query_params.get('case_id')
+            case = Case.objects.get(id=case_id)
+
+            if case.user == user:
+                feedback = data['feedback']
+                case.feedback = feedback
+                case.save()
+                return Response({'message': "ok"})
+            else:
+                return Response({'message': "this case not belong to you!"})
+
+        except:
+            raise APIException("error")

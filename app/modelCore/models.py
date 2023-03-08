@@ -93,3 +93,5 @@ class Case(models.Model):
     off_time = models.DateTimeField(auto_now=False, blank = True, null=True)
 
     reserve_date_time = models.DateTimeField(auto_now=False, blank = True, null=True)
+
+    feedback = models.TextField(default='', blank = True, null=True)

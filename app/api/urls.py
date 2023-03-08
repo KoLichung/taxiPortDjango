@@ -13,4 +13,5 @@ urlpatterns = [
     path('get_current_address', views.GetCurrentAddressView.as_view()),
     path('post_new_case', views.PostNewCaseView.as_view()),
     path('get_current_case_state', views.GetCurrentCaseStateView.as_view()),
+    path('put_case_feedback', views.PutCaseFeedbackView.as_view()),
 ]
