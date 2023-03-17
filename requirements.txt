@@ -2,3 +2,4 @@ django>=3.2.12
 djangorestframework>=3.9.0
 uwsgi>=2.0.18
 requests>=2.27.1
+django-environ==0.10.0

@@ -12,6 +12,7 @@ import logging
 
 from modelCore.models import Case
 from api import serializers
+from django.conf import settings
 
 logger = logging.getLogger(__file__)
 
@@ -76,7 +77,7 @@ class PostNewCaseView(APIView):
 
             case.on_address = data['on_address']
             try:
-                onUrl = path+case.on_address+"&key="+"AIzaSyCdP86OffSMXL82nbHA0l6K0W2xrdZ5xLk"
+                onUrl = path+case.on_address+"&key="+settings.API_KEY
                 logger.info(onUrl)
                 response = requests.get(onUrl)
                 # logger.info(response.text)
@@ -91,7 +92,7 @@ class PostNewCaseView(APIView):
             if data['off_address'] != None and data['off_address'] != '':
                 case.off_address = data['off_address']
                 try:
-                    onUrl = path+case.off_address+"&key="+"AIzaSyCdP86OffSMXL82nbHA0l6K0W2xrdZ5xLk"
+                    onUrl = path+case.off_address+"&key="+settings.API_KEY
                     response = requests.get(onUrl)
                     resp_json_payload = response.json()
                     case.off_lat = resp_json_payload['results'][0]['geometry']['location']['lat']
